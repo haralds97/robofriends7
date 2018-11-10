@@ -5,15 +5,27 @@ import SearchBox from '../components/SearchBox';
 import Scroll from	'../components/Scroll';
 import './App.css';
 import ErrorBoundary from '../components/ErrorBoundary';
+
 import { setSearchField } from '../actions.js';
 
+const mapStateToProps = state => {
+	return {
+		searchField: state.searchRobots.searchField
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+	}
+}
 
 class App extends Component {
 	constructor() {
 		super()
 		this.state = {
 			robots: [],
-			searchfield: ''
+			// searchfield: ''
 		}
 	}
 
@@ -24,9 +36,9 @@ componentDidMount () {
 		.then(users => this.setState({ robots: users }));
 }
 
-onSearchChange = (event) => {
-		this.setState({ searchfield: event.target.value });
-	}
+// onSearchChange = (event) => {
+// 		this.setState({ searchfield: event.target.value });
+// 	}
 	
 	render() {
 		const { robots, searchfield } = this.state;
